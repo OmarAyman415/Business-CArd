@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodePen - UI Profile Card</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
+  <link rel="stylesheet" href="/card.css" />
+  <style>
+    .cover-photo {
+      background: url("../uploads/cover/<%=user.coverImage %>");
+      background-size: cover;
+      height: 190px;
+      width: 100%;
+      border-radius: 0px 0px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="container">
+    <div class="cover-photo">
+      <img src="../uploads/profile/<%= user.profileImage %>" class="profile" />
+    </div>
+    <div class="header">
+      <h1>
+        <%= user.name %>
+      </h1>
+    </div>
+    <div class="about">
+      <p>
+        <%= user.bio%>
+      </p>
+    </div>
+    <div class="links">
+      <a class="message" href="../message/<%= user.id %>">Message</a>
+      <a class="save" href="/vcard/<%=user.id%>.vcf" download="<%=user.id%>.vcf">Save</a>
+    </div>
+    <div class="social-links">
+      <a class="fab fa-facebook-f facebook" href="<%= user.facebook %>" target="_blank">
+      </a>
+      <a class="fab fa-instagram" href="<%= user.instagram %>" target="_blank"></a>
+      <a class="fab fa-linkedin" href="<%= user. linkedin%>" target="_blank"></a>
+      <a class="fab fa-twitter" href="<%= user.twitter %>" target="_blank"></a>
+      <a class="fas fa-envelope" href="mailto:<%= user.emailAddress%>" target="_blank"></a>
+      <a class="fab fa-whatsapp" href="https://api.whatsapp.com/send?phone=%2B2<%= user.phone %>" target="_blank"></a>
+    </div>
+  </div>
+  <!-- partial -->
+</body>
+
+</html>

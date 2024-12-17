@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>Messages</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+   <link rel="stylesheet" href="/messagetable.css">
+</head>
+
+<body>
+   <!-- partial:index.partial.html -->
+   <div class="table-users">
+      <div class="header">Messages</div>
+  
+      <table cellspacing="0">
+         <tr>
+
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th width="230">Comments</th>
+         </tr>
+
+         <tr>
+            <% message.forEach(item=> { %>
+               <td>
+                  <%= item.name %>
+               </td>
+               <td>
+                  <%= item.email %>
+               </td>
+               <td>
+                  <%= item.phone %>
+               </td>
+               <td>
+                  <%= item.message %>
+               </td>
+         </tr>
+
+         <% }); %>
+      </table>
+   </div>
+   <!-- partial -->
+
+</body>
+
+</html>

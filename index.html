@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Collapsible Navbar</title>
+	<style>
+		/* Style for navbar */
+		.navbar {
+			background-color: #333;
+			overflow: hidden;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+
+		/* Style for navbar links */
+		.navbar a {
+			float: left;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		/* Style for active link */
+		.active {
+			background-color: #4CAF50;
+		}
+
+		/* Style for toggle button */
+		.navbar .icon {
+			display: none;
+			color: white;
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 14px 16px;
+			cursor: pointer;
+			font-size: 20px;
+		}
+
+		@media screen and (max-width: 600px) {
+			/* Collapse navbar on small screens */
+			.navbar a:not(:first-child) {display: none;}
+			.navbar a.icon {
+				float: right;
+				display: block;
+			}
+		}
+
+		@media screen and (max-width: 600px) {
+			/* Show toggle button on small screens */
+			.navbar.responsive .icon {
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			/* Show navbar links on toggle button click */
+			.navbar.responsive a {
+				float: none;
+				display: block;
+				text-align: center;
+			}
+		
+	</style>
+</head>
+<body>
+
+	<!-- Navbar -->
+	<div class="navbar " id="myNavbar">
+		<a href="#" class="active">Home</a>
+		<a href="#">About</a>
+		<a href="#">Contact</a>
+		<a href="#">Blog</a>
+		<a href="#">FAQs</a>
+		<a href="#">Login</a>
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+	</div>
+
+	<!-- Script for toggle button -->
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myNavbar");
+			if (x.className === "navbar") {
+				x.className += " responsive";
+			} else {
+				x.className = "navbar";
+			}
+		}
+	</script>
+
+</body>
+</html>

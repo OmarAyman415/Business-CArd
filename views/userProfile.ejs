@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>User Profile</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/fonts/icomoon/style.css" />
+
+  <link rel="stylesheet" href="/owl.carousel.min.css" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/bootstrap.min.css" />
+
+  <!-- Style -->
+  <link rel="stylesheet" href="/style.css" />
+
+  <link rel="stylesheet" href="/btn.css" />
+  <link rel="stylesheet" href="/userprofile.css" />
+</head>
+
+<body className="snippet-body">
+  <div class="wrapper bg-white mt-sm-5">
+    <h4 class="pb-4 border-bottom">Account settings</h4>
+    <form id="form" method="POST" action="/userProfile/edit/<%= user.id %>?_method=PUT" enctype="multipart/form-data">
+      <div class="d-flex align-items-start py-3 border-bottom">
+        <img <% let source="" %>
+        <% if(user.profileImage){ source='../uploads/profile/' +user.profileImage } else {
+          source='https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+          } %> src="<%- source %>" class="img" alt="" />
+            <div class="pl-sm-4 pl-2" id="img-section">
+              <b>Profile Photo</b>
+              <!-- Profile Image Upload -->
+
+              <input type="file" accept=".png, .jpg, .jpeg" class="form-control" id="customFile" name="profileImage"
+                placeholder="Profile Image" value="" />
+              <b>Cover Photo</b>
+              <!-- Cover Image Upload -->
+              <input type="file" accept=".png, .jpg, .jpeg" class="form-control" id="coverFile" name="coverImage"
+                value="" />
+              <!-- <div class="drag-image">
+              <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+              <h6>Drag & Drop File Here</h6>
+              <span>OR</span>
+              <button style="width: 200px">Browse File</button>
+              <input type="file" hidden required />
+            </div> -->
+            </div>
+      </div>
+      <div class="py-2">
+        <div class="row py-2">
+          <div class="col-md-6">
+            <label for="firstname">Name</label>
+            <input type="text" class="bg-light form-control" placeholder="Steve" name="name" value="<%= user.name %>" />
+          </div>
+          <div class="col-md-6">
+            <label for="bio">Jop Title</label>
+            <input type="text" class="bg-light form-control" placeholder="Jop Title" name="bio"
+              value="<%= user.bio %>" />
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-md-6">
+            <label for="email">Email Address</label>
+            <input type="text" class="bg-light form-control" placeholder="steve_@email.com" name="emailAddress"
+              value="<%= user.emailAddress %>" disabled />
+          </div>
+          <div class="col-md-6 pt-md-0 pt-3">
+            <label for="phone">Phone Number</label>
+            <input type="tel" class="bg-light form-control" placeholder="enter phone number" name="phone"
+              value="<%= user.phone %>" />
+          </div>
+        </div>
+        <div class="row py-2">
+          <div class="col-md-6">
+            <label for="facebook">Facebook</label>
+            <input type="text" class="bg-light form-control" placeholder="Facebook" name="facebook"
+              value="<%= user.facebook %>" />
+          </div>
+          <div class="col-md-6">
+            <label for="instagram">Instagram</label>
+            <input type="text" class="bg-light form-control" placeholder="Instagram" name="instagram"
+              value="<%= user.instagram %>" />
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-md-6">
+            <label for="twitter">Twitter</label>
+            <input type="text" class="bg-light form-control" placeholder="twitter" name="twitter"
+              value="<%= user.twitter %>" />
+          </div>
+          <div class="col-md-6">
+            <label for="linkedin">linkedin</label>
+            <input type="text" class="bg-light form-control" placeholder="linkedin" name="linkedin"
+              value="<%= user.linkedin %>" />
+          </div>
+        </div>
+
+        <div class="row py-2">
+          <div class="col-md-6">
+            <label for="twitter">Company Name</label>
+            <input type="text" class="bg-light form-control" placeholder="Company Name" name="CompanyName"
+              value="<%= user.CompanyName %>" />
+          </div>
+        </div>
+        <div class="row py-3 pb-4 justify-content-between buttons">
+          <div class="col-md-4">
+            <button class="btn btn-primary mr-3" type="submit">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bottom navbar -->
+
+  <!-- Navbar -->
+  <div class="navbar fixed-bottom justify-content-around" id="myNavbar">
+    <a href="/card/<%=user.id%>">Your Card</a>
+    <a href="/messageTable/<%=user.id%>" class="">Messages</a>
+    <a href="/logout">Logout</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+  <script type="text/javascript"
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById('myNavbar');
+      if (x.className === 'navbar') {
+        x.className += ' responsive';
+      } else {
+        x.className = 'navbar';
+      }
+    }
+
+    const form = document.getElementById('form');
+    const sendFiles = async () => {
+      //Objects
+      const profileFile = document.getElementsById('customFile').files;
+      const coverFile = document.getElementsById('coverFile').files;
+
+      const formData = new FormData();
+      object.Keys(profileFile).forEach((key) => {
+        formData.append(profileFile.item(key).name, profileFile.item(key));
+      });
+      object.Keys(coverFile).forEach((key) => {
+        formData.append(coverFile.item(key).name, coverFile.item(key));
+      });
+
+      const res = await fetch('/');
+    };
+  </script>
+  <script type="text/javascript">
+    var myLink = document.querySelector('a[href="#"]');
+    myLink.addEventListener('click', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="screen">
+      <div style="border-radius: 5px" class="screen__content">
+        <img src="/logo.png">
+        <form class="login">
+          <div class="login__field">
+            <i class="login__icon fas fa-user"></i>
+            <input type="text" name="username" class="login__input" placeholder="Username" required />
+          </div>
+
+          <div class="login__field">
+            <i class="login__icon fas fa-envelope"></i>
+            <input type="text" name="emailAddress" class="login__input" placeholder="Email" required />
+          </div>
+          <div class="email error"></div>
+
+          <div class="login__field">
+            <i class="login__icon fas fa-lock"></i>
+            <input type="password" name="password" class="login__input" placeholder="Password" required />
+          </div>
+          <div class="password error"></div>
+
+          <button class="button login__submit">
+            <span class="button__text">Sign Up</span>
+            <i class="button__icon fas fa-chevron-right"></i>
+          </button>
+        </form>
+      </div>
+      <div class="screen__background">
+        <span class="screen__background__shape screen__background__shape4"></span>
+        <span class="screen__background__shape screen__background__shape3"></span>
+        <span class="screen__background__shape screen__background__shape2"></span>
+        <span class="screen__background__shape screen__background__shape1"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      //reset ERRORS
+      emailError.textContent = '';
+      passwordError.textContent = '';
+
+      //get the values
+      const emailAddress = form.emailAddress.value;
+      const password = form.password.value;
+      const username = form.username.value;
+
+      try {
+        const res = await fetch('/signup', {
+          method: 'POST',
+          body: JSON.stringify({
+            emailAddress: emailAddress,
+            password: password,
+            name: username,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await res.json();
+        if (data.errors) {
+          console.log(data);
+          emailError.textContent = data.errors.emailAddress;
+          passwordError.textContent = data.errors.password;
+        }
+        if (data.user) {
+          location.assign(`/userProfile/${data.user}`)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  </script>
+</body>
+
+</html>
